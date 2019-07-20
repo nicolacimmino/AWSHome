@@ -1,0 +1,19 @@
+{
+  "name": "awshome-events",
+  "version": "1.0.0",
+  "description": "",
+  "main": "devices-events.js",
+  "dependencies": {
+    "aws-sdk": "^2.496.0",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "serverless-bundle": "^1.2.2",
+    "serverless-offline": "^5.8.0"
+  },
+  "scripts": {
+    "test": "serverless-bundle test"
+  },
+  "author": "",
+  "license": "ISC"
+}
