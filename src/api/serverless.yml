@@ -1,4 +1,4 @@
-service: events
+service: entries
 app: aws-home
 frameworkVersion: "=1.48.2"
 package:
@@ -27,10 +27,10 @@ plugins:
 
 functions:
   devices-events-create:
-    handler: events/devices-events.create
+    handler: entries/devices-journals-entries.create
     events:
       - http:
-          path: /api/devices/{did}/journals/{jid}/events/
+          path: /api/devices/{did}/journals/{jid}/entries/
           method: post
           request:
             parameters:
@@ -38,21 +38,6 @@ functions:
                 - did: true
                 - jid: true
 
-# you can add statements to the Lambda function's IAM Role here
-#  iamRoleStatements:
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:ListBucket"
-#      Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:PutObject"
-#      Resource:
-#        Fn::Join:
-#          - ""
-#          - - "arn:aws:s3:::"
-#            - "Ref" : "ServerlessDeploymentBucket"
-#            - "/*"
 
 # you can define service wide environment variables here
 #  environment:
