@@ -22,10 +22,35 @@ export async function create(event) {
 
     try {
         await dynamoDbLib.execute("put", params);
-        return api.success(apiEntryTransformer.toApiFormat(entry));
+        return api.created(entry, apiEntryTransformer.toApiFormat);
     } catch (e) {
         return api.failure({
             error: e.message
         });
     }
 }
+
+
+export async function list(event) {
+
+    // TODO: verify event.pathParameters.did owns jid
+
+    const params = {
+        TableName: dynamoDbLib.getFullTableName("entries", event.requestContext.stage),
+        KeyConditionExpression: "jid = :jid",
+        ExpressionAttributeValues: {
+            ":jid": event.pathParameters.jid
+        }
+    };
+
+    try {
+        const result = await dynamoDbLib.execute("query", params);
+
+        return api.successArray(result.Items, apiEntryTransformer.toApiFormat);
+    } catch (e) {
+        return api.failure({
+            error: e.message
+        });
+    }
+}
+

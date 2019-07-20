@@ -1,4 +1,4 @@
-service: entries
+service: aws-home-api
 app: aws-home
 frameworkVersion: "=1.48.2"
 package:
@@ -26,12 +26,23 @@ plugins:
   - serverless-offline
 
 functions:
-  devices-events-create:
+  devices-journals-entries-create:
     handler: entries/devices-journals-entries.create
     events:
       - http:
           path: /api/devices/{did}/journals/{jid}/entries/
           method: post
+          request:
+            parameters:
+              paths:
+                - did: true
+                - jid: true
+  devices-journals-entries-list:
+    handler: entries/devices-journals-entries.list
+    events:
+      - http:
+          path: /api/devices/{did}/journals/{jid}/entries/
+          method: get
           request:
             parameters:
               paths:
