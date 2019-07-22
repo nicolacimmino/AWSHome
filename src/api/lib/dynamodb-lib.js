@@ -1,8 +1,13 @@
 import AWS from "aws-sdk";
 
-// TODO: remove need to pass stage.
-export function execute(action, params, stage) {
-    const dynamoDb = (stage === "test") ?
+/**
+ *
+ * @param action
+ * @param params
+ * @returns {Promise<ManagedUpload.SendData>}
+ */
+export function execute(action, params) {
+    const dynamoDb = (process.env.SLS_STAGE === "test") ?
         new AWS.DynamoDB.DocumentClient({
             region: 'localhost',
             endpoint: 'http://localhost:8000',
@@ -14,6 +19,11 @@ export function execute(action, params, stage) {
     return dynamoDb[action](params).promise();
 }
 
-export function getFullTableName(name, stage) {
-    return "awsh-" + stage + "-" + name;
+/**
+ *
+ * @param name
+ * @returns {string}
+ */
+export function getFullTableName(name) {
+    return "awsh-" + process.env.SLS_STAGE + "-" + name;
 }

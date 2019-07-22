@@ -7,7 +7,9 @@ package:
 provider:
   name: aws
   runtime: nodejs10.x
-  stage: dev
+  stage: ${opt:stage, 'dev'}
+  environment:
+    SLS_STAGE: ${self:provider.stage}
   region: eu-west-2
   iamRoleStatements:
     - Effect: Allow
@@ -19,7 +21,7 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
-      Resource: "arn:aws:dynamodb:eu-west-2:*:*"
+      Resource: "arn:aws:dynamodb:${self:provider.region}:*:*"
 
 plugins:
   - serverless-bundle
@@ -55,7 +57,7 @@ resources:
     usersTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: awsh-test-entries
+        TableName: awsh-${self:provider.stage}-entries
         AttributeDefinitions:
           - AttributeName: jid
             AttributeType: S
@@ -65,7 +67,7 @@ resources:
           - AttributeName: jid
             KeyType: HASH
           - AttributeName: eid
-            KeyType: S
+            KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
@@ -84,18 +86,4 @@ custom:
         sources:
           - table: awsh-test-entries
             sources: [./database/seeds/awsh-test-entries.json]
-
-
-# you can define service wide environment variables here
-#  environment:
-#    variable1: value1
-
-# you can add packaging information here
-#package:
-#  include:
-#    - include-me.js
-#    - include-me-dir/**
-#  exclude:
-#    - exclude-me.js
-#    - exclude-me-dir/**
 
