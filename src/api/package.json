@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "serverless-bundle": "^1.2.2",
+    "serverless-dynamodb-local": "^0.2.38",
     "serverless-offline": "^5.8.0"
   },
   "scripts": {

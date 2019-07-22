@@ -23,6 +23,7 @@ provider:
 
 plugins:
   - serverless-bundle
+  - serverless-dynamodb-local
   - serverless-offline
 
 functions:
@@ -48,6 +49,41 @@ functions:
               paths:
                 - did: true
                 - jid: true
+
+resources:
+  Resources:
+    usersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: awsh-test-entries
+        AttributeDefinitions:
+          - AttributeName: jid
+            AttributeType: S
+          - AttributeName: eid
+            AttributeType: S
+        KeySchema:
+          - AttributeName: jid
+            KeyType: HASH
+          - AttributeName: eid
+            KeyType: S
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+
+custom:
+  dynamodb:
+    stages:
+      - test
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+      seed: true
+    seed:
+      test:
+        sources:
+          - table: awsh-test-entries
+            sources: [./database/seeds/awsh-test-entries.json]
 
 
 # you can define service wide environment variables here

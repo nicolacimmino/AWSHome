@@ -21,7 +21,7 @@ export async function create(event) {
     };
 
     try {
-        await dynamoDbLib.execute("put", params);
+        await dynamoDbLib.execute("put", params, event.requestContext.stage);
         return api.created(entry, apiEntryTransformer.toApiFormat);
     } catch (e) {
         return api.failure({
@@ -44,7 +44,7 @@ export async function list(event) {
     };
 
     try {
-        const result = await dynamoDbLib.execute("query", params);
+        const result = await dynamoDbLib.execute("query", params, event.requestContext.stage);
 
         return api.successArray(result.Items, apiEntryTransformer.toApiFormat);
     } catch (e) {
