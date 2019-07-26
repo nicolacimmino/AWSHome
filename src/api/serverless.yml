@@ -30,7 +30,7 @@ plugins:
 
 functions:
   devices-journals-entries-create:
-    handler: entries/devices-journals-entries.create
+    handler: http/devices-journals-entries.create
     events:
       - http:
           path: /api/devices/{did}/journals/{jid}/entries/
@@ -41,7 +41,7 @@ functions:
                 - did: true
                 - jid: true
   devices-journals-entries-list:
-    handler: entries/devices-journals-entries.list
+    handler: http/devices-journals-entries.list
     events:
       - http:
           path: /api/devices/{did}/journals/{jid}/entries/
@@ -57,16 +57,16 @@ resources:
     usersTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: awsh-${self:provider.stage}-entries
+        TableName: awsh-${self:provider.stage}
         AttributeDefinitions:
-          - AttributeName: jid
+          - AttributeName: uid
             AttributeType: S
-          - AttributeName: eid
+          - AttributeName: sk
             AttributeType: S
         KeySchema:
-          - AttributeName: jid
+          - AttributeName: uid
             KeyType: HASH
-          - AttributeName: eid
+          - AttributeName: sk
             KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
@@ -84,6 +84,6 @@ custom:
     seed:
       test:
         sources:
-          - table: awsh-test-entries
-            sources: [./database/seeds/awsh-test-entries.json]
+          - table: awsh-test
+            sources: [./database/seeds/awsh-test.json]
 

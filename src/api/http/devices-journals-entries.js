@@ -1,27 +1,15 @@
-import uuid from "uuid";
 import * as dynamoDbLib from "../lib/dynamodb-lib";
 import * as api from "../lib/api-lib";
 import * as apiEntryTransformer from "../transformers/api-entry-transformer";
+import * as entriesRepository from "../database/entries-repository";
 
 export async function create(event) {
 
     // TODO: verify event.pathParameters.did owns jid
 
-    const entry = {
-        jid: event.pathParameters.jid,
-        eid: uuid.v1(),
-        createdAt: Date.now(),
-        payload: JSON.parse(event.body)
-    };
-
-    const params = {
-        TableName: dynamoDbLib.getFullTableName("entries"),
-        ConditionExpression: "attribute_not_exists(eid) OR attribute_not_exists(did)",
-        Item: entry
-    };
-
     try {
-        await dynamoDbLib.execute("put", params);
+        const entry = await entriesRepository.createEntry(event.pathParameters.jid, JSON.parse(event.body));
+
         return api.created(entry, apiEntryTransformer.toApiFormat);
     } catch (e) {
         return api.failure({
