@@ -1,6 +1,6 @@
 service: aws-home-api
 app: aws-home
-frameworkVersion: "=1.48.2"
+frameworkVersion: "=1.48.4"
 package:
   individually: true
 
