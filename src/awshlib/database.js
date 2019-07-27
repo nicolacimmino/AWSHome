@@ -2,12 +2,10 @@ import AWS from "aws-sdk";
 
 /**
  *
- * @param action
- * @param params
- * @returns {Promise<ManagedUpload.SendData>}
+ * @returns {AWS.DynamoDB.DocumentClient}
  */
-export function execute(action, params) {
-    const dynamoDb = (process.env.SLS_STAGE === "test") ?
+export function getDatabase() {
+    return (process.env.SLS_STAGE === "test") ?
         new AWS.DynamoDB.DocumentClient({
             region: 'localhost',
             endpoint: 'http://localhost:8000',
@@ -16,7 +14,17 @@ export function execute(action, params) {
         })
         : new AWS.DynamoDB.DocumentClient();
 
-    return dynamoDb[action](params).promise();
+}
+
+/**
+ *
+ * @param action
+ * @param params
+ * @returns {Promise<ManagedUpload.SendData>}
+ */
+export function execute(action, params) {
+    const db = getDatabase();
+    return db[action](params).promise();
 }
 
 /**
