@@ -1,0 +1,34 @@
+[
+  {
+    "pk": "f83435b8-3ef4-44b6-ae2e-66ffb087fcc6",
+    "sk": "Group#f83435b8-3ef4-44b6-ae2e-66ffb087fcc6",
+    "createdAt": 1564157209,
+    "payload": {
+      "name": "Test Group"
+    }
+  },
+  {
+    "pk": "f83435b8-3ef4-44b6-ae2e-66ffb087fcc6",
+    "sk": "Device#91cb1a68-beb1-482a-a1c0-8c4faced713d",
+    "createdAt": 1564157209,
+    "payload": {
+      "name": "Living room"
+    }
+  },
+  {
+    "pk": "f83435b8-3ef4-44b6-ae2e-66ffb087fcc6",
+    "sk": "Journal#91cb1a68-beb1-482a-a1c0-8c4faced713d#ebf48e51-073c-418d-91fa-e8626a59c695",
+    "createdAt": 1564157209,
+    "payload": {
+      "name": "Temperature"
+    }
+  },
+  {
+    "pk": "f83435b8-3ef4-44b6-ae2e-66ffb087fcc6",
+    "sk": "Journal#91cb1a68-beb1-482a-a1c0-8c4faced713d#76006427-a5b9-4536-bc10-029b98888cce",
+    "createdAt": 1564157209,
+    "payload": {
+      "name": "Humidity"
+    }
+  }
+]
