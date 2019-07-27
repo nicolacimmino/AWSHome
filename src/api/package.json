@@ -5,6 +5,7 @@
   "main": "devices-events.js",
   "dependencies": {
     "aws-sdk": "^2.496.0",
+    "awshlib": "file:../awshlib",
     "uuid": "^3.3.2"
   },
   "devDependencies": {

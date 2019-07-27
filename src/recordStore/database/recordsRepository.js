@@ -1,4 +1,4 @@
-import * as database from "../lib/database.js";
+import * as database from "awshlib/database";
 import GroupTransformer from "../transformers/groupTransformer";
 
 class RecordsRepository {

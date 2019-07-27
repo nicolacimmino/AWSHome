@@ -1,4 +1,4 @@
-import * as dynamoDbLib from "../lib/dynamodb-lib";
+import * as database from "awshlib/database";
 import * as api from "../lib/api-lib";
 import * as apiEntryTransformer from "../transformers/api-entry-transformer";
 import * as entriesRepository from "../database/entries-repository";
@@ -24,7 +24,7 @@ export async function list(event) {
     // TODO: verify event.pathParameters.did owns jid
 
     const params = {
-        TableName: dynamoDbLib.getFullTableName("entries"),
+        TableName: database.getFullTableName("entries"),
         KeyConditionExpression: "jid = :jid",
         ExpressionAttributeValues: {
             ":jid": event.pathParameters.jid
@@ -32,7 +32,7 @@ export async function list(event) {
     };
 
     try {
-        const result = await dynamoDbLib.execute("query", params);
+        const result = await database.execute("query", params);
 
         return api.successArray(result.Items, apiEntryTransformer.toApiFormat);
     } catch (e) {

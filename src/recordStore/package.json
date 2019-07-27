@@ -13,5 +13,8 @@
   "license": "ISC",
   "devDependencies": {
     "aws-sdk": "^2.501.0"
+  },
+  "dependencies": {
+    "awshlib": "file:../awshlib"
   }
 }

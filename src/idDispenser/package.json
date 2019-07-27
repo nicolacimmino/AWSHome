@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "awshlib": "file:../awshlib",
     "hashids": "^1.2.2"
   }
 }
