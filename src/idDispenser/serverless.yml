@@ -20,6 +20,7 @@ provider:
       Resource: "arn:aws:dynamodb:${self:provider.region}:*:*"
 
 plugins:
+  - serverless-dynamodb-local
   - serverless-bundle
 
 resources:
@@ -40,6 +41,25 @@ resources:
 
 functions:
   dispense:
+    memorySize: 128
+    timeout: 10
     handler: handler.dispense
   init:
+    memorySize: 128
+    timeout: 10
     handler: handler.init
+
+custom:
+  dynamodb:
+    stages:
+      - test
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+      seed: true
+    seed:
+      test:
+        sources:
+          - table: awsh-test-iddispenser
+            sources: [./tests/database/seeds/awsh-test-iddispenser.json]
