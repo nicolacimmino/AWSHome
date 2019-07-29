@@ -39,11 +39,13 @@ To satisfy the above access patterns the following Key Schema was devised:
 
 | Partition Key | Sort Key                 | Attributes                                                              |
 |---------------|--------------------------|-------------------------------------------------------------------------|
-| GID           | Group#GID                | Group attirbutes (name, etc.)                                           |
-| GID           | Device#DID               | Device attributes (name, ACL policy doc, model etc.)                    |
-| GID           | Journal#DID#JID          | Journal attributes (name, data type)                                    |
-| GID           | Record#DID#JID#TIMESTAMP | Latest journal entry attributes (measured value, unit, type, timestamp) |
-| GID           | LatestRecord#DID#JID     | Journal record attributes (measured value, unit, type, timestamp)       |
+| GID           | Group#GID#                | Group attirbutes (name, etc.)                                           |
+| GID           | Device#DID#               | Device attributes (name, ACL policy doc, model etc.)                    |
+| GID           | Journal#DID#JID#          | Journal attributes (name, data type)                                    |
+| GID           | Record#DID#JID#TIMESTAMP# | Latest journal entry attributes (measured value, unit, type, timestamp) |
+| GID           | LatestRecord#DID#JID#     | Journal record attributes (measured value, unit, type, timestamp)       |
+
+NOTE: Sort keys end with # as a choice has been made to have DID and JID being simple incrementing IDs, this allows for queries using conditions as "begins_with" to work correctly.
 
 ### Data Access Operations ###
 
@@ -52,16 +54,16 @@ As a reference and to validate the key schema in all the assumed data access pat
 
 | Case                                                              | Action      | 
 |-------------------------------------------------------------------|-------------| 
-| Device adds journal record                                        | PutItem&nbsp;PK=GID&nbsp;SK=Record#DID#JID#TIMESTAMP<br>UpdateItem&nbsp;PK=GID&nbsp;SK=LatestRecord#DID#JID| 
+| Device adds journal record                                        | PutItem&nbsp;PK=GID&nbsp;SK=Record#DID#JID#TIMESTAMP#<br>UpdateItem&nbsp;PK=GID&nbsp;SK=LatestRecord#DID#JID#| 
 | List all devices in group                                         | Query&nbsp;PK=GID&nbsp;begins_with(SK,Device#)| 
 | List all journals in group                                        | Query&nbsp;PK=GID&nbsp;begins_with(SK,Jorunal#)| 
 | Get one device records in a certain time range                    | Query&nbsp;PK=GID&nbsp;SK&nbsp;between(Record#DID#JID#START_DATE,Record#DID#JID#END_DATE)| 
 | Get latest records for all devices in group                       | Query&nbsp;PK=GID&nbsp;begins_with(SK,LatestRecord#)| 
-| Get latest record for a device                                    | Query&nbsp;PK=GID&nbsp;begins_with(SK,LatestRecord#DID)| 
-| Add device                                                        | PutItem&nbsp;PK=GID&nbsp;SK=Device#DID| 
-| Remove device                                                     | DeleteItem&nbsp;PK=GID&nbsp;SK=Device#DID<br>DeleteItem&nbsp;PK=GID&nbsp;begins_with(SK,Journal#DID)<br>DeleteItem&nbsp;PK=GID&nbsp;begins_with(SK,Record#DID)<br>DeleteItem&nbsp;PK=GID&nbsp;begins_with(SK,LatestRecord#DID)| 
-| Alter device                                                      | PutItem&nbsp;PK=GID&nbsp;SK=Device#DID | 
-| Add group                                                         | PutItem&nbsp;PK=GID&nbsp;SK=Group#GID | 
-| Alter group                                                       | PutItem&nbsp;PK=GID&nbsp;SK=Group#GID | 
+| Get latest record for a device                                    | Query&nbsp;PK=GID&nbsp;begins_with(SK,LatestRecord#DID#)| 
+| Add device                                                        | PutItem&nbsp;PK=GID&nbsp;SK=Device#DID#| 
+| Remove device                                                     | DeleteItem&nbsp;PK=GID&nbsp;SK=Device#DID<br>DeleteItem&nbsp;PK=GID&nbsp;begins_with(SK,Journal#DID#)<br>DeleteItem&nbsp;PK=GID&nbsp;begins_with(SK,Record#DID)<br>DeleteItem&nbsp;PK=GID&nbsp;begins_with(SK,LatestRecord#DID#)| 
+| Alter device                                                      | PutItem&nbsp;PK=GID&nbsp;SK=Device#DID# | 
+| Add group                                                         | PutItem&nbsp;PK=GID&nbsp;SK=Group#GID# | 
+| Alter group                                                       | PutItem&nbsp;PK=GID&nbsp;SK=Group#GID# | 
 | Remove group                                                      | DeleteItem&nbsp;PK=GID | 
 
