@@ -9,12 +9,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.501.0",
+    "aws-sdk": "^2.502.0",
     "awshlib": "file:../awshlib",
     "hashids": "^1.2.2"
   },
   "devDependencies": {
-    "serverless-bundle": "^1.2.2",
+    "serverless-bundle": "^1.2.3",
     "serverless-dynamodb-local": "^0.2.38"
   }
 }
