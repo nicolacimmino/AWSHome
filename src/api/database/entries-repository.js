@@ -1,5 +1,5 @@
 import uuid from "uuid";
-import * as dynamoDbLib from "../lib/dynamodb-lib";
+import * as database from "awshlib/database";
 
 /**
  *
@@ -16,13 +16,13 @@ async function createEntry(jid, payload) {
     };
 
     const params = {
-        TableName: dynamoDbLib.getFullTableName("entries"),
+        TableName: database.getFullTableName("entries"),
         ConditionExpression: "attribute_not_exists(eid) OR attribute_not_exists(did)",
         Item: entry
     };
 
     try {
-        await dynamoDbLib.execute("put", params);
+        await database.execute("put", params);
         return entry;
     } catch (e) {
         console.error(e);

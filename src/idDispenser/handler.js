@@ -2,6 +2,8 @@ import * as database from "awshlib/database";
 import * as response from "./service/response";
 import {IdGenerator} from "./ids/idGenerator";
 import {IdTransformer} from "./ids/idTransformer";
+import {DispenseRequest} from "./service/dispenseRequest";
+import {InitRequest} from "./service/initRequest";
 
 /**
  * Initialize an idtag.
@@ -12,18 +14,16 @@ import {IdTransformer} from "./ids/idTransformer";
 export async function init(event) {
 
     try {
-        const idtag = event.idtag;
-        const salt = event.config.salt;
-        const min_length = event.config.min_length;
+        const request = new InitRequest(event);
 
         const idGenerator = new IdGenerator(database);
         const idTransformer = new IdTransformer(database);
 
-        await idGenerator.init(idtag);
-        await idTransformer.init(idtag, salt, min_length);
+        await idGenerator.init(request.idtag);
+        await idTransformer.init(request.idtag, request.salt, request.min_length);
 
         return response.success({
-            idtag: idtag
+            idtag: request.idtag
         });
 
     } catch (err) {
@@ -40,13 +40,14 @@ export async function init(event) {
 export async function dispense(event) {
 
     try {
-        const idtag = event.idtag;
+        const request = new DispenseRequest(event);
+
         const idGenerator = new IdGenerator(database);
         const idTransformer = new IdTransformer(database);
 
-        const newId = await idGenerator.getNext(idtag);
+        const newId = await idGenerator.getNext(request.idtag);
 
-        return response.success(await idTransformer.transform(idtag, newId));
+        return response.success(await idTransformer.transform(request.idtag, newId));
 
     } catch (err) {
         return response.failure(err.message, err.errorCode);

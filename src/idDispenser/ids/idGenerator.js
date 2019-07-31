@@ -31,7 +31,7 @@ class IdGenerator {
             console.error(err);
 
             if (err.message === "The conditional request failed") {
-                throw new errors.AWSHNotFoundError(`idtag ${idtag} has been already initialised.`);
+                throw new errors.AWSHDuplicateResourceError(`idtag ${idtag} has been already initialised.`);
             }
 
             throw new errors.AWSHInternalError();

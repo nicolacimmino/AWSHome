@@ -1,4 +1,4 @@
-service: iddispenser
+service: awsh-iddispenser
 
 provider:
   name: aws

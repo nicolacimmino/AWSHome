@@ -1,4 +1,4 @@
-service: aws-home-api
+service: awsh-api
 app: aws-home
 frameworkVersion: "=1.48.4"
 package:

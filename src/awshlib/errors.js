@@ -1,7 +1,8 @@
 const AwshErrors = {
     NOT_FOUND: "ERROR_NOTFOUND",
     INTERNAL: "ERROR_INTERNAL",
-    DUPLICATE_RESOURCE: "DUPLICATE_RESOURCE"
+    DUPLICATE_RESOURCE: "DUPLICATE_RESOURCE",
+    FORMAT_INVALID: "FORMAT_INVALID"
 };
 
 class AWSHError extends Error {
@@ -32,4 +33,11 @@ class AWSHDuplicateResourceError extends AWSHError {
     }
 }
 
-export {AWSHInternalError, AWSHNotFoundError, AWSHDuplicateResourceError};
+class AWSHFormatInvalidError extends AWSHError {
+    constructor(message = "") {
+        super(message);
+        this.errorCode = AwshErrors.FORMAT_INVALID;
+    }
+}
+
+export {AWSHInternalError, AWSHNotFoundError, AWSHDuplicateResourceError, AWSHFormatInvalidError};
