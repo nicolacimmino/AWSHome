@@ -4,7 +4,7 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "webpack --config webpack.config-test.js && mocha .build/bundle.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,7 +15,19 @@
     "hashids": "^1.2.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/node": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/register": "^7.5.5",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.6",
+    "babel-polyfill": "^6.26.0",
+    "mocha": "^6.2.0",
     "serverless-bundle": "^1.2.3",
-    "serverless-dynamodb-local": "^0.2.38"
+    "serverless-dynamodb-local": "^0.2.38",
+    "webpack": "^4.39.1",
+    "webpack-cli": "^3.3.6",
+    "webpack-node-externals": "^1.7.2"
   }
 }
