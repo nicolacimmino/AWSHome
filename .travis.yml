@@ -4,7 +4,10 @@ node_js:
 branches:
   only:
     - master
-before_install:
-  - cd src/idDispenser
-script:
-  - npm test
+jobs:
+  include:
+    - stage: idDispenser
+    before_install:
+      - cd src/idDispenser
+    script:
+      - npm test
