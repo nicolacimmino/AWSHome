@@ -1,18 +1,12 @@
 import {Response} from "awshlib/response";
-import {IdTransformer} from "../ids/idTransformer";
+import {IdTransformer} from "../ids/IdTransformer";
 
 class DispenseResponse extends Response {
 
-    static async create(database, idtag, newId) {
+    static create(idtag, newId, id_salt, id_min_length) {
         const dispenseResponse = new DispenseResponse();
 
-        if (database === undefined) {
-            return dispenseResponse;
-        }
-
-        const idTransformer = new IdTransformer(database);
-
-        dispenseResponse.responseObject = await idTransformer.transform(idtag, newId);
+        dispenseResponse.responseObject = IdTransformer.transform(idtag, newId, id_salt, id_min_length);
 
         return dispenseResponse;
     }

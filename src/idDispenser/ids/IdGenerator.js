@@ -11,34 +11,6 @@ class IdGenerator {
     }
 
     /**
-     * Initialises the given idtag.
-     *
-     * @param idtag
-     * @returns {Promise<void>}
-     */
-    async init(idtag) {
-        try {
-
-            await this.database.execute("put", {
-                "TableName": this.database.getFullTableName("iddispenser"),
-                ConditionExpression: "attribute_not_exists(idtag)",
-                "Item": {
-                    "idtag": idtag,
-                    "last_sequential": 0
-                }
-            });
-        } catch (err) {
-            console.error(err);
-
-            if (err.message === "The conditional request failed") {
-                throw new errors.AWSHDuplicateResourceError(`idtag ${idtag} has been already initialised.`);
-            }
-
-            throw new errors.AWSHInternalError();
-        }
-    }
-
-    /**
      * Returns the next id for the supplied idtag.
      *
      * @param idtag

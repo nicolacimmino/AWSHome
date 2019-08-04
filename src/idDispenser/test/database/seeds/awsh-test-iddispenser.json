@@ -1,10 +1,6 @@
 [
   {
     "idtag": "gid",
-    "last_sequential": 0,
-    "config": {
-      "salt": "I1B33dFLxy1Ea0bT",
-      "min_length": 8
-    }
+    "last_sequential": 0
   }
 ]

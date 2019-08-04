@@ -20,6 +20,7 @@ provider:
       Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/awsh-dev-iddispenser"
 
 plugins:
+  - serverless-dotenv-plugin
   - serverless-dynamodb-local
   - serverless-bundle
 
@@ -47,10 +48,6 @@ functions:
     memorySize: 128
     timeout: 10
     handler: handler.dispense
-  init:
-    memorySize: 128
-    timeout: 10
-    handler: handler.init
 
 custom:
   dynamodb:
