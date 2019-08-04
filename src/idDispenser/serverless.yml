@@ -23,6 +23,9 @@ plugins:
   - serverless-dynamodb-local
   - serverless-bundle
 
+package:
+  individually: true
+
 resources:
   Resources:
     usersTable:

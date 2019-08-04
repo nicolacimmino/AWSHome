@@ -10,7 +10,6 @@
   "license": "MIT",
   "dependencies": {
     "@hapi/joi": "^15.1.0",
-    "aws-sdk": "^2.503.0",
     "awshlib": "file:../awshlib",
     "hashids": "^1.2.2"
   },
