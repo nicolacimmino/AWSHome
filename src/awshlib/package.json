@@ -9,14 +9,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@hapi/joi": "^15.1.0",
-    "aws-sdk": "^2.503.0"
+    "@hapi/joi": "^15.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",
     "@babel/node": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
-    "@babel/register": "^7.5.5"
+    "@babel/register": "^7.5.5",
+    "aws-sdk": "^2.503.0"
   }
 }
