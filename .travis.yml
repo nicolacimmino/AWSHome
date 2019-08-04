@@ -5,6 +5,6 @@ branches:
   only:
     - master
 before_install:
-  - cd src\idDispenser
+  - cd src/idDispenser
 script:
   - npm test
