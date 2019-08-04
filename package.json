@@ -1,0 +1,22 @@
+{
+  "name": "awshome",
+  "version": "1.0.0",
+  "description": "A proof of concept home monitoring application based on AWS services",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test:idDispenser",
+    "test:idDispenser": "cd src/idDispenser && npm test",
+    "install": "npm run install:idDispenser",
+    "install:idDispenser": "cd src/idDispenser && npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicolacimmino/AWSHome.git"
+  },
+  "author": "Nicola Cimmino",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nicolacimmino/AWSHome/issues"
+  },
+  "homepage": "https://github.com/nicolacimmino/AWSHome#readme"
+}

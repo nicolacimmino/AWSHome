@@ -1,9 +1,10 @@
 import * as database from "awshlib/database";
-import * as response from "./service/response";
 import {IdGenerator} from "./ids/idGenerator";
 import {IdTransformer} from "./ids/idTransformer";
-import {DispenseRequest} from "./service/dispenseRequest";
-import {InitRequest} from "./service/initRequest";
+import {InitRequest} from "./service/InitRequest";
+import {InitResponse} from "./service/InitResponse";
+import {DispenseResponse} from "./service/DispenseResponse";
+import {DispenseRequest} from "./service/DispenseRequest";
 
 /**
  * Initialize an idtag.
@@ -22,12 +23,10 @@ export async function init(event) {
         await idGenerator.init(request.idtag);
         await idTransformer.init(request.idtag, request.salt, request.min_length);
 
-        return response.success({
-            idtag: request.idtag
-        });
+        return new InitResponse(request.idtag).success();
 
     } catch (err) {
-        return response.failure(err.message, err.errorCode);
+        return new InitResponse().failure(err.message, err.errorCode);
     }
 }
 
@@ -43,13 +42,12 @@ export async function dispense(event) {
         const request = new DispenseRequest(event);
 
         const idGenerator = new IdGenerator(database);
-        const idTransformer = new IdTransformer(database);
 
         const newId = await idGenerator.getNext(request.idtag);
 
-        return response.success(await idTransformer.transform(request.idtag, newId));
+        return (await DispenseResponse.create(database,request.idtag, newId)).success();
 
     } catch (err) {
-        return response.failure(err.message, err.errorCode);
+        return (await DispenseResponse.create()).failure(err.message, err.errorCode);
     }
 }

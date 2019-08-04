@@ -10,7 +10,7 @@ class InitRequest extends Request {
             config: Joi.object().keys({
                 salt: Joi.string().required(),
                 min_length: Joi.number().required()
-            })
+            }).required()
         }));
 
         this.idtag = event.idtag;

@@ -24,8 +24,6 @@ class Request {
         const result = Joi.validate(this.event, this.schema);
 
         if (result.error) {
-            console.log(result.error);
-
             if (result.error.isJoi !== true) {
                 throw new errors.AWSHInternalError();
             }
