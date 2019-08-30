@@ -5,12 +5,32 @@ import * as errors from "awshlib/errors";
 
 describe('IDs', function () {
     describe('IdTransformer', function () {
+
         it("should transform correctly", function () {
             const result = IdTransformer.transform("unitest", 10, "sdfjkl34j234j", "8");
 
             assert.equal(result.idtag, "unitest");
             assert.equal(result.id, 10);
             assert.equal(result.encoded, "5YXd4XZ0");
+
+            return true;
+        });
+
+        it("should decode correctly", function () {
+            const result = IdTransformer.decode("unitest", "5YXd4XZ0", "sdfjkl34j234j", "8");
+
+            assert.equal(result.idtag, "unitest");
+            assert.equal(result.id, 10);
+            assert.equal(result.encoded, "5YXd4XZ0");
+
+            return true;
+        });
+
+        it("should throw on invalid encoded", function () {
+            assert.throws(function () {
+                IdTransformer.decode("unitest", "invalidencoded", "sdfjkl34j234j", "8");
+
+            }, errors.AWSHFormatInvalidError, "Encoded id is not valid", "Error AWSHFormatInvalidError expected");
 
             return true;
         });
