@@ -27,3 +27,28 @@ The ID-Dispenser service is responsible to provide sequential and unpredictable 
   }
  }
 ````
+
+## Decode Method ##
+
+### Request ###
+
+````JSON
+{
+  "idtag": "gid",
+  "encoded": "OxaYbwKR"
+}
+````
+
+### Response ###
+
+````JSON
+{
+  "status":"OK",
+  "response": 
+  {
+    "id":68,
+    "idtag":"gid",
+    "encoded":"OxaYbwKR"
+  }
+ }
+````
