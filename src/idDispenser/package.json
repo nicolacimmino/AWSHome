@@ -4,7 +4,7 @@
   "description": "Microservice encapsulating the logic to dispense resources unique identifiers.",
   "main": "handler.js",
   "scripts": {
-    "test": "webpack --config webpack.config-test.js && mocha .build/bundle.js"
+    "test": "webpack --config test/webpack.config-test.js && mocha test/.build/bundle.js"
   },
   "author": "Nicola Cimmino",
   "license": "MIT",
