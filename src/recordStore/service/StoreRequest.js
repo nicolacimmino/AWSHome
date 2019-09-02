@@ -6,12 +6,22 @@ class StoreRequest extends Request {
         const Joi = require("@hapi/joi");
 
         super(event, Joi.object().keys({
-            idtag: Joi.string().required(),
-            encoded: Joi.string().required()
+            did: Joi.string().required(),
+            jid: Joi.string().required(),
+            payload: Joi.object().keys({
+                    version: Joi.number().required().min(1).max(1),
+                    timestamp: Joi.number().required(),
+                    type: Joi.string().required(),
+                    value: Joi.string().required(),
+                }
+            )
         }));
 
-        this.idtag = event.idtag;
-        this.encoded = event.encoded;
+        this.version = event.version;
+        this.did = event.did;
+        this.jid = event.jid;
+        this.timestamp = event.payload.timestamp;
+        this.payload = event.payload;
     }
 }
 

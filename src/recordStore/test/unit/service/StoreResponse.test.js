@@ -6,12 +6,12 @@ describe('Service', function () {
     describe('DecodeResponse', function () {
 
         it("should respond correctly", function () {
-            const response = StoreResponse.create("unitest", "5YXd4XZ0", "sdfjkl34j234j", 8).success();
+            const response = StoreResponse.create("12", "1", 1234567).success();
 
             assert.equal(response.status, "OK");
-            assert.equal(response.response.id, 10);
-            assert.equal(response.response.idtag, "unitest");
-            assert.equal(response.response.encoded, "5YXd4XZ0");
+            assert.equal(response.response.did, "12");
+            assert.equal(response.response.jid, "1");
+            assert.equal(response.response.timestamp, 1234567);
 
             return true;
         });

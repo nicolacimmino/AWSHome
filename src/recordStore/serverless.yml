@@ -1,4 +1,4 @@
-service: awsh-datastore
+service: awsh-recordstore
 
 provider:
   name: aws
@@ -17,13 +17,12 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
-      Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/awsh-dev-datastore"
+      Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/awsh-dev-recordstore"
 
 plugins:
   - serverless-dotenv-plugin
   - serverless-dynamodb-local
   - serverless-bundle
-
 package:
   individually: true
 
@@ -32,13 +31,17 @@ resources:
     usersTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: awsh-${self:provider.stage}-datastore
+        TableName: awsh-${self:provider.stage}-recordstore
         AttributeDefinitions:
-          - AttributeName: idtag
+          - AttributeName: gid
+            AttributeType: S
+          - AttributeName: sk
             AttributeType: S
         KeySchema:
-          - AttributeName: idtag
+          - AttributeName: gid
             KeyType: HASH
+          - AttributeName: sk
+            KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
@@ -61,5 +64,5 @@ custom:
     seed:
       test:
         sources:
-          - table: awsh-test-datastore
-            sources: [./tests/database/seeds/awsh-test-datastore.json]
+          - table: awsh-test-recordstore
+            sources: [./tests/database/seeds/awsh-test-recordstore.json]

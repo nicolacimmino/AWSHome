@@ -1,17 +1,23 @@
-import {DecodeRequest} from "./service/StoreRequest";
+import {StoreRequest} from "./service/StoreRequest";
 import {StoreResponse} from "./service/StoreResponse";
+import {RecordRepository} from "./repositories/RecordRepository";
+import * as database from "awshlib/database";
 
 /**
- * Decode an encoded id for the given idtag.
+ * Store a record.
  *
  * @param event
  * @returns {Promise<{code: *, message: *, status: string}|*|Uint8Array>}
  */
 export async function store(event) {
     try {
-        let request = new DecodeRequest(event);
+        let request = new StoreRequest(event);
 
-        return StoreResponse.create(request.idtag, request.encoded, process.env.ID_SALT, process.env.ID_MIN_LENGTH).success();
+        const recordRepository = new RecordRepository(database);
+
+        await recordRepository.storeRecord("1",request.did, request.jid, request.timestamp, request.payload);
+
+        return StoreResponse.create(request.did, request.jid, request.payload.timestamp).success();
 
     } catch (err) {
         return (await StoreResponse.create()).failure(err.message, err.errorCode);

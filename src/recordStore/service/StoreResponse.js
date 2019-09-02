@@ -1,16 +1,17 @@
 import {Response} from "awshlib/response";
-import {IdTransformer} from "../ids/IdTransformer";
 
 class StoreResponse extends Response {
 
-    static create(idtag, encoded, id_salt, id_min_length) {
-        const decodeResponse = new StoreResponse();
+    static create(did, jid, timestamp) {
+        const storeResponse = new StoreResponse();
 
-        if (idtag) {
-            decodeResponse.responseObject = IdTransformer.decode(idtag, encoded, id_salt, id_min_length);
-        }
+        storeResponse.responseObject = {
+            did: did,
+            jid: jid,
+            timestamp: timestamp
+        };
 
-        return decodeResponse;
+        return storeResponse;
     }
 }
 

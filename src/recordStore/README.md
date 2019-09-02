@@ -1,4 +1,4 @@
-# Record-Dispenser #
+# Record-Store #
 
 
 The record store microservice is an internal (no public API) service responsible to store records provided by devices and some metadata about the devices and journals themselves. Additionally the Record Store microservice is responsbile of the housekeeping such as deleting data of removed devices and cleaning up of old hystorical records. The Record Store is designed to handle the actual live, transactional part of the service ([OLTP](https://en.wikipedia.org/wiki/Online_transaction_processing)), eventual long term data warehousing and analitical functions ([OLAP](https://en.wikipedia.org/wiki/Online_analytical_processing)) will be taken care by separate services if the requirement arises.

@@ -4,8 +4,9 @@
   "description": "A proof of concept home monitoring application based on AWS services",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test:idDispenser",
+    "test": "npm run test:idDispenser && npm run test:recordStore",
     "test:idDispenser": "cd src/idDispenser && npm test",
+    "test:recordStore": "cd src/recordStore && npm test",
     "install": "npm run install:idDispenser",
     "install:idDispenser": "cd src/idDispenser && npm install"
   },

@@ -1,38 +1,76 @@
 import {describe} from "mocha";
 import * as errors from "awshlib/errors";
 import {assert} from "chai";
-import {DecodeRequest} from "../../../service/StoreRequest";
+import {StoreRequest} from "../../../service/StoreRequest";
 
 describe('Service', function () {
-    describe('DecodeRequest', function () {
+    describe('StoreRequest', function () {
         it("should parse correctly", function () {
-            const request = new DecodeRequest({
-                idtag: "unitest",
-                encoded: "testEncoded"
+            const request = new StoreRequest({
+                did: "12",
+                jid: "1",
+                payload: {
+                    version: 1,
+                    timestamp: 12345,
+                    type: "temp",
+                    value: "12"
+                }
             });
 
-            assert.equal(request.idtag, "unitest");
-            assert.equal(request.encoded, "testEncoded");
+            assert.equal(request.did, "12");
+            assert.equal(request.jid, "1");
+            assert.equal(request.timestamp, 12345);
 
             return true;
         });
 
-        it("should fail validation - idtag", function () {
+        it("should fail validation - did", function () {
             assert.throws(function () {
-                new DecodeRequest({
-                    idtagMispelled: "unitest"
-                })
-            }, errors.AWSHFormatInvalidError, "idtag", "Error AWSHFormatInvalidError expected");
+                new StoreRequest({
+                    nodid: "12",
+                    jid: "1",
+                    payload: {
+                        version: 1,
+                        timestamp: 12345,
+                        type: "temp",
+                        value: "12"
+                    }
+                });
+            }, errors.AWSHFormatInvalidError, "did", "Error AWSHFormatInvalidError expected");
 
             return true;
         });
 
-        it("should fail validation - encoded", function () {
+        it("should fail validation - jid", function () {
             assert.throws(function () {
-                new DecodeRequest({
-                    idtag: "unitest"
-                })
-            }, errors.AWSHFormatInvalidError, "encoded", "Error AWSHFormatInvalidError expected");
+                new StoreRequest({
+                    did: "12",
+                    nojid: "1",
+                    payload: {
+                        version: 1,
+                        timestamp: 12345,
+                        type: "temp",
+                        value: "12"
+                    }
+                });
+            }, errors.AWSHFormatInvalidError, "jid", "Error AWSHFormatInvalidError expected");
+
+            return true;
+        });
+
+        it("should fail validation - payload version", function () {
+            assert.throws(function () {
+                new StoreRequest({
+                    did: "12",
+                    jid: "1",
+                    payload: {
+                        version: 2,
+                        timestamp: 12345,
+                        type: "temp",
+                        value: "12"
+                    }
+                });
+            }, errors.AWSHFormatInvalidError, "version", "Error AWSHFormatInvalidError expected");
 
             return true;
         });
