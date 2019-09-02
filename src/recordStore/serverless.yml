@@ -1,0 +1,65 @@
+service: awsh-datastore
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  region: eu-west-2
+  stage: ${opt:stage, 'dev'}
+  environment:
+    SLS_STAGE: ${self:provider.stage}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/awsh-dev-datastore"
+
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-dynamodb-local
+  - serverless-bundle
+
+package:
+  individually: true
+
+resources:
+  Resources:
+    usersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: awsh-${self:provider.stage}-datastore
+        AttributeDefinitions:
+          - AttributeName: idtag
+            AttributeType: S
+        KeySchema:
+          - AttributeName: idtag
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+
+functions:
+  store:
+    memorySize: 128
+    timeout: 10
+    handler: handler.store
+
+custom:
+  dynamodb:
+    stages:
+      - test
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+      seed: true
+    seed:
+      test:
+        sources:
+          - table: awsh-test-datastore
+            sources: [./tests/database/seeds/awsh-test-datastore.json]
