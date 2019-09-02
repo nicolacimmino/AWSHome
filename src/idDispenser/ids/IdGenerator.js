@@ -39,7 +39,7 @@ class IdGenerator {
             console.error(err);
 
             if (err.message === "The provided expression refers to an attribute that does not exist in the item") {
-                throw new errors.AWSHNotFoundError(`idtag ${idtag} was not found in database. Ensure init is called for this idtag.`);
+                throw new errors.AWSHNotFoundError(`idtag ${idtag} is not valid.`);
             }
 
             throw new errors.AWSHInternalError();

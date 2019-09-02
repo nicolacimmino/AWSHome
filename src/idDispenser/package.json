@@ -9,7 +9,7 @@
   "author": "Nicola Cimmino",
   "license": "MIT",
   "dependencies": {
-    "@hapi/joi": "^15.1.0",
+    "@hapi/joi": "^15.1.1",
     "awshlib": "file:../awshlib",
     "hashids": "^1.2.2",
     "serverless-dotenv-plugin": "^2.1.1"
@@ -29,8 +29,8 @@
     "nyc": "^14.1.1",
     "serverless-bundle": "^1.2.3",
     "serverless-dynamodb-local": "^0.2.38",
-    "webpack": "^4.39.1",
-    "webpack-cli": "^3.3.6",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.7",
     "webpack-node-externals": "^1.7.2"
   }
 }
