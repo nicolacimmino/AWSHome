@@ -7,7 +7,7 @@
     "test": "npm run test:idDispenser && npm run test:recordStore",
     "test:idDispenser": "cd src/idDispenser && npm test",
     "test:recordStore": "cd src/recordStore && npm test",
-    "install": "npm run install:idDispenser && npm run install:idDispenser",
+    "install": "npm run install:idDispenser && npm run install:recordStore",
     "install:idDispenser": "cd src/idDispenser && npm install",
     "install:recordStore": "cd src/recordStore && npm install"
   },
