@@ -1,5 +1,5 @@
+# Record-Dispenser #
 
-# Record Store #
 
 The record store microservice is an internal (no public API) service responsible to store records provided by devices and some metadata about the devices and journals themselves. Additionally the Record Store microservice is responsbile of the housekeeping such as deleting data of removed devices and cleaning up of old hystorical records. The Record Store is designed to handle the actual live, transactional part of the service ([OLTP](https://en.wikipedia.org/wiki/Online_transaction_processing)), eventual long term data warehousing and analitical functions ([OLAP](https://en.wikipedia.org/wiki/Online_analytical_processing)) will be taken care by separate services if the requirement arises.
 
@@ -67,3 +67,46 @@ As a reference and to validate the key schema in all the assumed data access pat
 | Alter group                                                       | PutItem&nbsp;PK=GID&nbsp;SK=Group#GID# | 
 | Remove group                                                      | DeleteItem&nbsp;PK=GID | 
 
+
+# API #
+
+## awsh-recordstore-{$stage}-store ##
+
+This function provides 
+
+### Request ###
+
+````JSON
+{
+  "idtag": "gid" 
+}
+````
+
+### Response ###
+
+````JSON
+{
+  "status":"OK",
+  "response": 
+  {
+    "id":68,
+    "idtag":"gid",
+    "encoded":"OxaYbwKR"
+  }
+ }
+````
+
+
+## Errors ##
+
+Should an error occur the response status will be "ERROR" and both a human readable error message and an error code will be returned.
+
+### Example ###
+
+````JSON
+{
+  "status": "ERROR",
+  "errorMessage": "Encoded id is not valid.",
+  "errorCode": "FORMAT_INVALID"
+}
+````
