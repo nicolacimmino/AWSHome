@@ -1,53 +1,38 @@
 service: awsh-api
-app: aws-home
-frameworkVersion: "=1.48.4"
-package:
-  individually: true
 
 provider:
   name: aws
   runtime: nodejs10.x
+  region: eu-west-2
   stage: ${opt:stage, 'dev'}
   environment:
     SLS_STAGE: ${self:provider.stage}
-  region: eu-west-2
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - dynamodb:DescribeTable
-        - dynamodb:Query
-        - dynamodb:Scan
-        - dynamodb:GetItem
-        - dynamodb:PutItem
-        - dynamodb:UpdateItem
-        - dynamodb:DeleteItem
-      Resource: "arn:aws:dynamodb:${self:provider.region}:*:*"
 
 plugins:
+  - serverless-dotenv-plugin
   - serverless-bundle
-  - serverless-dynamodb-local
-  - serverless-offline
 
 functions:
-  devices-journals-entries-create:
-    handler: http/devices-journals-entries.create
+  devices-journals-record-create:
+    handler: handlerDevicesJournalsRecords.create
     events:
       - http:
-          path: /api/devices/{did}/journals/{jid}/entries/
+          path: /api/devices/{did}/journals/{jid}/records/
           method: post
           request:
             parameters:
               paths:
                 - did: true
                 - jid: true
-  devices-journals-entries-list:
-    handler: http/devices-journals-entries.list
+  devices-journals-records-list:
+    handler: handlerDevicesJournalsRecords.list
     events:
       - http:
-          path: /api/devices/{did}/journals/{jid}/entries/
+          path: /api/devices/{did}/journals/{jid}/records/
           method: get
           request:
             parameters:
               paths:
                 - did: true
                 - jid: true
+
