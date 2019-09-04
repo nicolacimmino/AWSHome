@@ -6,9 +6,10 @@ describe('Service', function () {
     describe('DecodeResponse', function () {
 
         it("should respond correctly", function () {
-            const response = StoreResponse.create("12", "1", 1234567).success();
+            const response = StoreResponse.create("19", "12", "1", 1234567).success();
 
             assert.equal(response.status, "OK");
+            assert.equal(response.response.gid, "19");
             assert.equal(response.response.did, "12");
             assert.equal(response.response.jid, "1");
             assert.equal(response.response.timestamp, 1234567);

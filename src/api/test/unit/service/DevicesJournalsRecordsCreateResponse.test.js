@@ -3,7 +3,7 @@ import {assert} from "chai";
 import {DevicesJournalsRecordsCreateResponse} from "../../../service/DevicesJournalsRecordsCreateResponse";
 
 describe('Service', function () {
-    describe('DecodeResponse', function () {
+    describe('DevicesJournalsRecordsCreateResponse', function () {
 
         it("should respond correctly", function () {
             const response = DevicesJournalsRecordsCreateResponse.create("12", "1", 1234567).created();

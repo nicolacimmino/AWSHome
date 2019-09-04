@@ -6,6 +6,7 @@ class StoreRequest extends Request {
         const Joi = require("@hapi/joi");
 
         super(event, Joi.object().keys({
+            gid: Joi.string().required(),
             did: Joi.string().required(),
             jid: Joi.string().required(),
             payload: Joi.object().keys({
@@ -18,6 +19,7 @@ class StoreRequest extends Request {
         }));
 
         this.version = event.version;
+        this.gid = event.gid;
         this.did = event.did;
         this.jid = event.jid;
         this.timestamp = event.payload.timestamp;

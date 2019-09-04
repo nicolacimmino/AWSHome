@@ -11,12 +11,12 @@ describe('Service', function () {
                     did: "12",
                     jid: "1"
                 },
-                body: {
+                body: JSON.stringify({
                     version: 1,
                     timestamp: 12345,
                     type: "temp",
                     value: "12"
-                }
+                })
             });
 
             assert.equal(request.did, "12");
@@ -32,12 +32,12 @@ describe('Service', function () {
                     pathParameters: {
                         jid: "1"
                     },
-                    body: {
+                    body: JSON.stringify({
                         version: 1,
                         timestamp: 12345,
                         type: "temp",
                         value: "12"
-                    }
+                    })
                 });
             }, errors.AWSHFormatInvalidError, "did", "Error AWSHFormatInvalidError expected");
 
@@ -50,12 +50,12 @@ describe('Service', function () {
                     pathParameters: {
                         did: "12",
                     },
-                    body: {
+                    body: JSON.stringify({
                         version: 1,
                         timestamp: 12345,
                         type: "temp",
                         value: "12"
-                    }
+                    })
                 });
             }, errors.AWSHFormatInvalidError, "jid", "Error AWSHFormatInvalidError expected");
 
@@ -69,12 +69,12 @@ describe('Service', function () {
                         jid: "1",
                         did: "12",
                     },
-                    body: {
+                    body: JSON.stringify({
                         version: 2,
                         timestamp: 12345,
                         type: "temp",
                         value: "12"
-                    }
+                    })
                 });
             }, errors.AWSHFormatInvalidError, "version", "Error AWSHFormatInvalidError expected");
 

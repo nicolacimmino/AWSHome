@@ -1,5 +1,6 @@
 import {DevicesJournalsRecordsCreateRequest} from "./service/DevicesJournalsRecordsCreateRequest";
 import {DevicesJournalsRecordsCreateResponse} from "./service/DevicesJournalsRecordsCreateResponse";
+import {RecordStore} from "awshlib/recordStore";
 
 /**
  * Store a record.
@@ -10,6 +11,10 @@ import {DevicesJournalsRecordsCreateResponse} from "./service/DevicesJournalsRec
 export async function create(event) {
     try {
         let request = new DevicesJournalsRecordsCreateRequest(event);
+
+        const recordStore = new RecordStore("dev");
+
+        await recordStore.store("17", request.did, request.jid, request.payload);
 
         return DevicesJournalsRecordsCreateResponse.create(request.did, request.jid, request.timestamp).created();
 

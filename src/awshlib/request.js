@@ -21,7 +21,9 @@ class Request {
     validate() {
         const Joi = require('@hapi/joi');
 
-        const result = Joi.validate(this.event, this.schema);
+        const result = Joi.validate(this.event, this.schema, {
+            convert: false  // Prevents stuff like JSON strings being converted to objects, string to numbers etc.
+        });
 
         if (result.error) {
             if (result.error.isJoi !== true) {

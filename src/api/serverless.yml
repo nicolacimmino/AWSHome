@@ -7,6 +7,12 @@ provider:
   stage: ${opt:stage, 'dev'}
   environment:
     SLS_STAGE: ${self:provider.stage}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - lambda:InvokeFunction
+      Resource: "arn:aws:lambda:${self:provider.region}:*:function:awsh-recordstore-${self:provider.stage}-store"
+
 
 plugins:
   - serverless-dotenv-plugin

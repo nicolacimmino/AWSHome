@@ -5,9 +5,11 @@ class DevicesJournalsRecordsCreateRequest extends Request {
     constructor(event) {
         const Joi = require("@hapi/joi");
 
-        event.pathParameters.payload = event.body;
+        let requestData = event.pathParameters;
 
-        super(event.pathParameters, Joi.object().keys({
+        requestData.payload = JSON.parse(event.body);
+
+        super(requestData, Joi.object().keys({
             did: Joi.string().required(),
             jid: Joi.string().required(),
             payload: Joi.object().keys({
@@ -19,11 +21,11 @@ class DevicesJournalsRecordsCreateRequest extends Request {
             )
         }));
 
-        this.version = event.pathParameters.payload.version;
-        this.did = event.pathParameters.did;
-        this.jid = event.pathParameters.jid;
-        this.timestamp = event.pathParameters.payload.timestamp;
-        this.payload = event.pathParameters.payload;
+        this.version = requestData.payload.version;
+        this.did = requestData.did;
+        this.jid = requestData.jid;
+        this.timestamp = requestData.payload.timestamp;
+        this.payload = requestData.payload;
     }
 }
 

@@ -1,5 +1,7 @@
 import AWS from "aws-sdk";
 
+// TODO: change to class
+
 /**
  *
  * @returns {AWS.DynamoDB.DocumentClient}

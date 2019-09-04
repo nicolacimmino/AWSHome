@@ -15,9 +15,9 @@ export async function store(event) {
 
         const recordRepository = new RecordRepository(database);
 
-        await recordRepository.storeRecord("1",request.did, request.jid, request.timestamp, request.payload);
+        await recordRepository.storeRecord(request.gid, request.did, request.jid, request.timestamp, request.payload);
 
-        return StoreResponse.create(request.did, request.jid, request.payload.timestamp).success();
+        return StoreResponse.create(request.gid, request.did, request.jid, request.payload.timestamp).success();
 
     } catch (err) {
         return (await StoreResponse.create()).failure(err.message, err.errorCode);

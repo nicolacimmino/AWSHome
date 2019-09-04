@@ -7,6 +7,7 @@ describe('Service', function () {
     describe('StoreRequest', function () {
         it("should parse correctly", function () {
             const request = new StoreRequest({
+                gid: "19",
                 did: "12",
                 jid: "1",
                 payload: {
@@ -27,6 +28,7 @@ describe('Service', function () {
         it("should fail validation - did", function () {
             assert.throws(function () {
                 new StoreRequest({
+                    gid: "19",
                     nodid: "12",
                     jid: "1",
                     payload: {
@@ -44,6 +46,7 @@ describe('Service', function () {
         it("should fail validation - jid", function () {
             assert.throws(function () {
                 new StoreRequest({
+                    gid: "19",
                     did: "12",
                     nojid: "1",
                     payload: {
@@ -61,6 +64,7 @@ describe('Service', function () {
         it("should fail validation - payload version", function () {
             assert.throws(function () {
                 new StoreRequest({
+                    gid: "19",
                     did: "12",
                     jid: "1",
                     payload: {
@@ -71,6 +75,19 @@ describe('Service', function () {
                     }
                 });
             }, errors.AWSHFormatInvalidError, "version", "Error AWSHFormatInvalidError expected");
+
+            return true;
+        });
+
+        it("should fail validation - payload is string", function () {
+            assert.throws(function () {
+                new StoreRequest({
+                    gid: "19",
+                    did: "12",
+                    jid: "1",
+                    payload: "{version: 2,timestamp: 12345,type: \"temp\",value: \"12\"}"
+                });
+            }, errors.AWSHFormatInvalidError, "\"payload\" must be an object", "Error AWSHFormatInvalidError expected");
 
             return true;
         });

@@ -2,10 +2,11 @@ import {Response} from "awshlib/response";
 
 class StoreResponse extends Response {
 
-    static create(did, jid, timestamp) {
+    static create(gid, did, jid, timestamp) {
         const storeResponse = new StoreResponse();
 
         storeResponse.responseObject = {
+            gid: gid,
             did: did,
             jid: jid,
             timestamp: timestamp
