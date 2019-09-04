@@ -3,78 +3,37 @@ HOST: http://polls.apiblueprint.org/
 
 # AWSHome
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+AWSHome API.
 
-## Questions Collection [/questions]
+## Records  [/devices/{did}/journals/{jid}/records]
 
-### List All Questions [GET]
++ Parameters
+    + did: `adv34dv` (string, required) - Device ID.
+    + jid: `1` (string, required) - Journal ID.
+        
+### Create a new record [POST]
 
-+ Response 200 (application/json)
-
-        [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
-            }
-        ]
-
-### Create a New Question [POST]
-
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
+Devices can report a new record into their journals.
 
 + Request (application/json)
 
         {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
+            "version": 1,
+            "timestamp": 1567607026,
+            "type": "TEMP",
+            "value": "22"
         }
 
 + Response 201 (application/json)
 
     + Headers
 
-            Location: /questions/2
+            Location: /devices/{did}/journals/{jid}/records
 
     + Body
 
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
+               "did": "adv34dv",
+                "jid": "1",
+                "timestamp": 1567607026
             }
