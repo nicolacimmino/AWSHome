@@ -4,14 +4,9 @@
   "description": "A proof of concept home monitoring application based on AWS services",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test:idDispenser && npm run test:recordStore && npm run test:api",
-    "test:api": "cd src/api && npm test",
-    "test:idDispenser": "cd src/idDispenser && npm test",
-    "test:recordStore": "cd src/recordStore && npm test",
-    "install": "npm run install:idDispenser && npm run install:recordStore && npm run install:api",
-    "install:api": "cd src/api && npm install",
-    "install:idDispenser": "cd src/idDispenser && npm install",
-    "install:recordStore": "cd src/recordStore && npm install"
+    "test": "cd src && npm test",
+    "install": "cd src && npm install",
+    "start": "cd src && npm start"
   },
   "repository": {
     "type": "git",
